@@ -102,11 +102,12 @@ columns = length(blur(1, :));
     for (j = 1: lineEquations(end))
         syms x;
         syms y;
-        eq1 =  lineEquations(j,1)*x + lineEquations(j,2);
-        for (k = 1 : lineEquations(end))
-            eq2 = lineEquations(j,1)*x + lineEquations(j,2);
+        eq1 =  lineEquations(j,1)*x + lineEquations(j,2) + 1*y == 0;
+        for k = 1 : lineEquations(end)
+            eq2 = lineEquations(j,1)*x + lineEquations(j,2)+ 1*y == 0;
+            [A,B] = equationsToMatrix([eq1,eq2],[x,y]);
+            X = linsolve(A,B);
             soln = solve([eq1,eq2],x);
-            disp('Intersection')
             disp(soln)    
         end
     end
